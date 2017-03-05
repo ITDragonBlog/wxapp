@@ -1,0 +1,25 @@
+<!--pages/list/list.wxml-->
+<text>这是文章列表页面</text>
+<!--用name 定义模版-->
+<template name="msgTemp">
+<!--
+1. scaleToFill : 图片全部填充显示，可能导致变形
+2. aspectFit ： 图片全部显示，以最长边为准
+3. aspectFill ： 图片全部显示，以最短边为准
+4. widthFix ： 宽不变，全部显示图片
+-->
+<view>
+    <image src="{{src}}" mode="scaleToFill"></image>
+</view>
+<view>
+    <text>{{title}}</text>
+    <text>{{time}}</text>
+</view>
+</template>
+
+
+<view wx:for="{{msgList}}">
+    <!--用is 使用模版-->
+    <template is="msgTemp" data="{{...item}}"/>
+</view>
+
