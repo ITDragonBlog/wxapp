@@ -1,8 +1,5 @@
 <view class="page">
-    <view class="page__hd">
-        <view class="page__title"></view>
-    </view>
-    <view class="page__bd page__bd_spacing">
+    <view class="page__bd">
         <!--用name 定义模版-->
         <template name="msgTemp">
             <!--
@@ -12,7 +9,7 @@
             4. widthFix ： 宽不变，全部显示图片
             -->
             <view class="weui-panel__bd">
-                <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                <navigator url="../detail/detail?id={{id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
                     <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
                         <image class="weui-media-box__thumb" src="{{src}}" style="width: 60px; height: 60px;"/>
                     </view>
