@@ -19,3 +19,24 @@ function formatNumber(n) {
 module.exports = {
   formatTime: formatTime
 }
+
+var rootDocment = 'https://www.itit123.cn';
+function req(url,data,cb){
+    wx.request({
+      url: rootDocment + url,
+      data: data,
+      method: 'post',
+      header: {'Content-Type': 'application/json'},
+      success: function(res){
+        return typeof cb == "function" && cb(res.data)
+      },
+      fail: function(){
+        return typeof cb == "function" && cb(false)
+      }
+    })
+}
+
+
+module.exports = {
+  req: req
+}

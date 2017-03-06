@@ -1,0 +1,4 @@
+<view>
+    <textarea value="{{textdata}}"/>
+</view>
+<button bindtap="RequestData" value="Button">Button</button>

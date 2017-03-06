@@ -1,4 +1,6 @@
 // pages/list/list.js
+var app = getApp();
+
 Page({
   data:{
     msgList:[
@@ -10,6 +12,9 @@ Page({
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
+    app.ajax.req('/blog/list',{},function(res){  
+      console.log(res)
+    });
   },
   onReady:function(){
     // 页面渲染完成
