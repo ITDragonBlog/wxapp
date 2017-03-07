@@ -1,18 +1,22 @@
 // pages/detail/detail.js
 Page({
   data: {
-    textdata: "put value",
+    textdata: "测试 wx.request",
   },
   RequestData: function () {
     var that = this;
     wx.request({
-      url: 'https://baidu.com',
+      url: 'https://www.itit123.cn/blog/list',
       data: {},
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      // header: {}, // 设置请求的 header 默认是application/json
       success: function (res) {
-        that.setData({ textdata: res.data });
-        console.log(res.data);
+        // 操作json数据
+        var text ="";
+        for(var i in res.data) {
+          text += i + "." + res.data[i].title + "\r\n";
+        }
+        that.setData({ textdata: text});
       },
       fail: function () {
         // fail
