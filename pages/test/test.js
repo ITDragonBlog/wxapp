@@ -6,11 +6,12 @@ Page({
   RequestData: function () {
     var that = this;
     wx.request({
-      url: 'https://www.itit123.cn/itdragon/findAll',
-      data: {},
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      url: 'https://www.itit123.cn/itdragon/findOne?id='+1,
+      data: {"id":"1"},
+      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header 默认是application/json
       success: function (res) {
+        console.log(res.data);
         // 操作json数据
         var text ="";
         for(var i in res.data) {
