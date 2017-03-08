@@ -8,7 +8,7 @@ Page({
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     var that = this
-    app.ajax.req('/blog/list',{},function(res){  
+    app.ajax.req('/itdragon/findAll',{},function(res){  
       that.setData({
         msgList:res
       })

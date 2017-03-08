@@ -6,7 +6,7 @@ Page({
   RequestData: function () {
     var that = this;
     wx.request({
-      url: 'https://www.itit123.cn/blog/list',
+      url: 'https://www.itit123.cn/itdragon/findAll',
       data: {},
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header 默认是application/json
