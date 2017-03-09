@@ -6,7 +6,7 @@ Page({
   },
   onLoad:function(options){
     var that = this;
-    app.ajax.req('/itdragon/findOne?id='+options.id,{
+    app.ajax.req('/itdragon/findOne',{
       id: options.id
     },function(res){ 
       console.log(res); 

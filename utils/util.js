@@ -26,7 +26,7 @@ function req(url,data,cb){
       url: rootDocment + url,
       data: data,
       method: 'post',
-      header: {'Content-Type': 'application/json'},
+      header: {'Content-Type':'application/x-www-form-urlencoded'},
       success: function(res){
         return typeof cb == "function" && cb(res.data)
       },
