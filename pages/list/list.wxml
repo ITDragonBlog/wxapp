@@ -1,4 +1,4 @@
-<view class="page">
+<view  class="page">
     <view class="page__bd">
         <!--用name 定义模版-->
         <template name="msgTemp">
@@ -8,7 +8,7 @@
             3. aspectFill ： 图片全部显示，以最短边为准
             4. widthFix ： 宽不变，全部显示图片
             -->
-            <view class="weui-panel__bd">
+            <view  class="weui-panel__bd">
                 <navigator url="../detail/detail?id={{id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
                     <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
                         <image class="weui-media-box__thumb" src="{{src}}" style="width: 60px; height: 60px;"/>
@@ -21,7 +21,7 @@
             </view>
         </template>
         
-        <view class="weui-panel weui-panel_access">
+        <scroll-view scroll-top="{{scrollTop}}" style="height: {{windowHeight}}px; width: {{windowWidth}}px;" scroll-y="true" bindscrolltoupper="pullDownRefresh"  bindscroll="scroll" bindscrolltolower="pullUpLoad" class="weui-panel weui-panel_access">
             <view class="weui-panel__hd">文章列表</view>
                 <view wx:for-items="{{msgList}}" wx:key="{{item.id}}">
                     <view class="kind-list__item">
@@ -29,12 +29,11 @@
                         <template is="msgTemp" data="{{...item}}"/>
                     </view>
                 </view>
-            <view class="weui-panel__ft">
-                <view class="weui-cell weui-cell_access weui-cell_link">
-                    <view class="weui-cell__bd">查看更多</view>
-                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                </view>
-            </view>
+        </scroll-view>
+        <view>
+            <loading hidden="{{hidden}}" bindchange="loadingChange">
+            加载中...
+            </loading>
         </view>
     </view>
     <view class="page__ft">

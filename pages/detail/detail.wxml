@@ -15,5 +15,10 @@
                 
             </view>
         </view>
+        <view>
+            <loading hidden="{{hidden}}" bindchange="loadingChange">
+            加载中...
+            </loading>
+        </view>
     </view>
 </view>

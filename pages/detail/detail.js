@@ -2,17 +2,23 @@
 var app = getApp();
 Page({
   data:{
-    msgDetail:{}
+    msgDetail:{},
+    hidden:true
   },
   onLoad:function(options){
     var that = this;
+    that.setData({
+      hidden:false
+    });
     app.ajax.req('/itdragon/findOne',{
       id: options.id
     },function(res){ 
-      console.log(res); 
       that.setData({
         msgDetail:res
-      })
+      });
+    });
+    that.setData({
+      hidden:true
     });
   },
   onReady:function(){
