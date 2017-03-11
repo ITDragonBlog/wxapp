@@ -44,26 +44,13 @@
                     <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="searchData">搜索</view>
                 </view>
                 <view class="weui-cells searchbar-result" wx:if="{{searchLogShowed}}">
-                    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                        <view class="weui-cell__bd">
-                            <view>实时搜索文本</view>
-                        </view>
-                    </navigator>
-                    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                        <view class="weui-cell__bd">
-                            <view>实时搜索文本</view>
-                        </view>
-                    </navigator>
-                    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                        <view class="weui-cell__bd">
-                            <view>实时搜索文本</view>
-                        </view>
-                    </navigator>
-                    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                        <view class="weui-cell__bd">
-                            <view>实时搜索文本</view>
-                        </view>
-                    </navigator>
+                    <view wx:for-items="{{searchLogList}}" wx:key="{{item.{{searchLogList}}}}">
+                        <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                            <view class="weui-cell__bd">
+                                <view>{{searchLogList}}</view>
+                            </view>
+                        </navigator>
+                    </view>
                 </view>
             </view>
             <view wx:for-items="{{msgList}}" wx:key="{{item.id}}">

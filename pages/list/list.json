@@ -1,0 +1,11 @@
+{
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/list/list",
+      "text": "文章列表"
+    }, {
+      "pagePath": "pages/user/user",
+      "text": "个人主页"
+    }]
+  }
+}

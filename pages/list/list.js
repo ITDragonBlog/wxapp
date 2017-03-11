@@ -3,9 +3,11 @@ var app = getApp();
 
 var pageNum = 1; // 当前页数
 var searchTitle = ""; // 搜索关键字
+var msgListKey = "";
 
-// 加载数据
+// 加载数据 isRefresh 是否加载的判断
 var loadMsgData = function(that){
+  msgListKey = "msgList" + pageNum;
   that.setData({
     hidden:false
   });
@@ -20,13 +22,13 @@ var loadMsgData = function(that){
       allMsg.push(res[i]);
     }
     that.setData({
-      msgList:allMsg
-    });
-    pageNum ++;
-    that.setData({
+      msgList:allMsg,
       hidden:true
     });
+    // 缓存列表页面
+    wx.setStorageSync(msgListKey,allMsg);
   });
+  pageNum ++;
 }
 
 Page({
@@ -37,7 +39,8 @@ Page({
     scrollHeight:0,
     inputShowed: false,
     inputVal: "",
-    searchLogShowed: false
+    searchLogShowed: false,
+    searchLogList:[]
   },
 
   onLoad:function(options){
@@ -51,7 +54,14 @@ Page({
         })
       }
     });
-    loadMsgData(that);
+    var info = wx.getStorageSync(msgListKey);
+    if (info) {
+      that.setData({
+        msgList:info
+      });
+    } else {
+      loadMsgData(that);
+    }
   },
 
   onReady:function(){
@@ -61,7 +71,7 @@ Page({
     // 页面显示
   },
 
-  // 下拉刷新数据
+  // 下拉刷新数据 下拉动态效果不明显有待改善
   pullDownRefresh: function() {
     var that = this;
     pageNum = 1;
@@ -72,10 +82,10 @@ Page({
     loadMsgData(that);
   },
 
-  // 上拉加载数据 上拉动态效果不明显有待改善
+  // 上拉加载数据 
   pullUpLoad: function() {
     var that = this;
-    loadMsgData(that);
+    loadMsgData(that); // 没有从缓存中读取，有待改善
   },
   // 定位数据
   scroll:function(event){
@@ -86,8 +96,12 @@ Page({
   },
   showInput: function () {
     var that = this;
+    var searchbarData = that.data.searchLogList;
+    var searchLog = wx.getStorageSync(searchTitle);
+    console.log(searchLog);
     that.setData({
-        inputShowed: true
+      inputShowed: true,
+      searchLogList : searchLog
     });
   },
   // 点击 搜索 按钮后 隐藏搜索记录，并加载数据
@@ -100,6 +114,7 @@ Page({
     });
     pageNum = 1;
     loadMsgData(that);
+    // 搜索后将搜索记录缓存到本地
   },
   // 点击叉叉icon 清除输入内容，同时清空关键字，并加载数据
   clearInput: function () {

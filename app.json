@@ -1,18 +1,19 @@
 {
   "pages":[
     "pages/list/list",
-    "pages/detail/detail",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/test/test"
+    "pages/list/list",
+    "pages/detail/detail",
+    "pages/user/user"
   ],
   "tabBar": {
     "list": [{
       "pagePath": "pages/list/list",
       "text": "文章列表"
     }, {
-      "pagePath": "pages/test/test",
-      "text": "测试"
+      "pagePath": "pages/user/user",
+      "text": "个人主页"
     }]
   },
   "window":{

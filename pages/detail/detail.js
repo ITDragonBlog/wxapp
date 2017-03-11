@@ -7,19 +7,27 @@ Page({
   },
   onLoad:function(options){
     var that = this;
+    var msgDetailKey = "msgDetail" + options.id;
     that.setData({
       hidden:false
     });
-    app.ajax.req('/itdragon/findOne',{
-      id: options.id
-    },function(res){ 
+    var info = wx.getStorageSync(msgDetailKey);
+    if (info) {
       that.setData({
-        msgDetail:res
+        msgDetail:info,
+        hidden:true
       });
-    });
-    that.setData({
-      hidden:true
-    });
+    } else {
+      app.ajax.req('/itdragon/findOne',{
+        id: options.id
+      },function(res){ 
+        that.setData({
+          msgDetail:res,
+          hidden:true
+        });
+        wx.setStorageSync(msgDetailKey,res);
+      });
+    }
   },
   onReady:function(){
     // 页面渲染完成
