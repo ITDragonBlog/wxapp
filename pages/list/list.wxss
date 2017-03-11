@@ -1,1 +1,13 @@
 /* pages/list/list.wxss */
+.weui-search-bar {
+    position:relative;
+    padding:6px 10px;
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:flex;
+    box-sizing:border-box;
+    background-color:#EFEFF4;
+    border-top:0 solid #D7D6DC;
+    border-bottom:0 solid #D7D6DC;
+    border-radius:4px;
+}
