@@ -1,34 +1,77 @@
+
+<!--用name 定义模版-->
+<template name="msgTemp">
+    <!--
+    1. scaleToFill : 图片全部填充显示，可能导致变形 默认
+    2. aspectFit ： 图片全部显示，以最长边为准
+    3. aspectFill ： 图片全部显示，以最短边为准
+    4. widthFix ： 宽不变，全部显示图片
+    -->
+    <view  class="weui-panel__bd">
+        <navigator url="../detail/detail?id={{id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <image class="weui-media-box__thumb" src="{{src}}" style="width: 60px; height: 60px;"/>
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title">{{title}}</view>
+                <view class="weui-media-box__desc">{{time}}</view>
+            </view>
+        </navigator>
+    </view>
+</template>
+<!--搜索模版-->
+<template name="wxSearchbar">
+</template>
+
 <view  class="page">
     <view class="page__bd">
-        <!--用name 定义模版-->
-        <template name="msgTemp">
-            <!--
-            1. scaleToFill : 图片全部填充显示，可能导致变形 默认
-            2. aspectFit ： 图片全部显示，以最长边为准
-            3. aspectFill ： 图片全部显示，以最短边为准
-            4. widthFix ： 宽不变，全部显示图片
-            -->
-            <view  class="weui-panel__bd">
-                <navigator url="../detail/detail?id={{id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                        <image class="weui-media-box__thumb" src="{{src}}" style="width: 60px; height: 60px;"/>
-                    </view>
-                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                        <view class="weui-media-box__title">{{title}}</view>
-                        <view class="weui-media-box__desc">{{time}}</view>
-                    </view>
-                </navigator>
-            </view>
-        </template>
-        
         <scroll-view scroll-top="{{scrollTop}}" style="height: {{windowHeight}}px; width: {{windowWidth}}px;" scroll-y="true" bindscrolltoupper="pullDownRefresh"  bindscroll="scroll" bindscrolltolower="pullUpLoad" class="weui-panel weui-panel_access">
-            <view class="weui-panel__hd">文章列表</view>
-                <view wx:for-items="{{msgList}}" wx:key="{{item.id}}">
-                    <view class="kind-list__item">
-                        <!--用is 使用模版-->
-                        <template is="msgTemp" data="{{...item}}"/>
+            <view class="weui-panel__hd">
+                <view class="weui-search-bar">
+                    <view class="weui-search-bar__form">
+                        <view class="weui-search-bar__box">
+                            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                            <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                                <icon type="clear" size="14"></icon>
+                            </view>
+                        </view>
+                        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                            <icon class="weui-icon-search" type="search" size="14"></icon>
+                            <view class="weui-search-bar__text">搜索</view>
+                        </label>
                     </view>
+                    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="searchData">搜索</view>
                 </view>
+                <view class="weui-cells searchbar-result" wx:if="{{searchLogShowed}}">
+                    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">
+                            <view>实时搜索文本</view>
+                        </view>
+                    </navigator>
+                    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">
+                            <view>实时搜索文本</view>
+                        </view>
+                    </navigator>
+                    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">
+                            <view>实时搜索文本</view>
+                        </view>
+                    </navigator>
+                    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+                        <view class="weui-cell__bd">
+                            <view>实时搜索文本</view>
+                        </view>
+                    </navigator>
+                </view>
+            </view>
+            <view wx:for-items="{{msgList}}" wx:key="{{item.id}}">
+                <view class="kind-list__item">
+                    <!--用is 使用模版-->
+                    <template is="msgTemp" data="{{...item}}"/>
+                </view>
+            </view>
         </scroll-view>
         <view>
             <loading hidden="{{hidden}}" bindchange="loadingChange">
