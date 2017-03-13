@@ -11,3 +11,21 @@
     border-bottom:0 solid #D7D6DC;
     border-radius:4px;
 }
+
+.search-log{
+    border:1px solid #eee !important;
+    display:inline-block !important;
+    margin-left:10px !important;
+    margin-top:5px !important;
+    border-radius:5px;
+    padding-left:14px;
+    padding-right:14px;
+    box-sizing:border-box;
+    text-align:center;
+    text-decoration:none;
+    line-height:2.55555556;
+}
+
+.clear-search-log{
+    text-align: center;
+}

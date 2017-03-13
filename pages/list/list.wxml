@@ -19,9 +19,6 @@
         </navigator>
     </view>
 </template>
-<!--搜索模版-->
-<template name="wxSearchbar">
-</template>
 
 <view  class="page">
     <view class="page__bd">
@@ -43,14 +40,11 @@
                     </view>
                     <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="searchData">搜索</view>
                 </view>
-                <view class="weui-cells searchbar-result" wx:if="{{searchLogShowed}}">
-                    <view wx:for-items="{{searchLogList}}" wx:key="{{item.{{searchLogList}}}}">
-                        <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                            <view class="weui-cell__bd">
-                                <view>{{searchLogList}}</view>
-                            </view>
-                        </navigator>
+                <view wx:if="{{searchLogShowed}}">
+                    <view  class="search-log" wx:for-item="searchLog" wx:for="{{searchLogList}}"  wx:key="searchLogListId" bindtap="searchDataByLog" data-log="{{searchLog}}">
+                        {{searchLog}} 
                     </view>
+                    <view class="clear-search-log" bindtap="clearSearchLog">清除搜索记录</view>
                 </view>
             </view>
             <view wx:for-items="{{msgList}}" wx:key="{{item.id}}">

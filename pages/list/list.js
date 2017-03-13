@@ -34,13 +34,13 @@ var loadMsgData = function(that){
 Page({
   data:{
     msgList:[],
+    searchLogList:[],
     hidden:true,
     scrollTop : 0,
     scrollHeight:0,
     inputShowed: false,
     inputVal: "",
-    searchLogShowed: false,
-    searchLogList:[]
+    searchLogShowed: false
   },
 
   onLoad:function(options){
@@ -96,12 +96,8 @@ Page({
   },
   showInput: function () {
     var that = this;
-    var searchbarData = that.data.searchLogList;
-    var searchLog = wx.getStorageSync(searchTitle);
-    console.log(searchLog);
     that.setData({
-      inputShowed: true,
-      searchLogList : searchLog
+      inputShowed: true
     });
   },
   // 点击 搜索 按钮后 隐藏搜索记录，并加载数据
@@ -115,6 +111,9 @@ Page({
     pageNum = 1;
     loadMsgData(that);
     // 搜索后将搜索记录缓存到本地
+    var searchLogData = that.data.searchLogList;
+    searchLogData.push(searchTitle);
+    wx.setStorageSync('searchLog', searchLogData);
   },
   // 点击叉叉icon 清除输入内容，同时清空关键字，并加载数据
   clearInput: function () {
@@ -131,11 +130,45 @@ Page({
   // 输入内容时 把当前内容赋值给 查询的关键字，并显示搜索记录
   inputTyping: function (e) {
     var that = this;
-    that.setData({
-        inputVal: e.detail.value,
-        searchLogShowed: true
-    });
+    if ("" != wx.getStorageSync('searchLog')) {
+      that.setData({
+          inputVal: e.detail.value,
+          searchLogShowed: true,
+          searchLogList : wx.getStorageSync('searchLog')
+      });
+    } else {
+      that.setData({
+          inputVal: e.detail.value,
+          searchLogShowed: true
+      });
+    }
     searchTitle = e.detail.value;
+  },
+  // 通过搜索记录查询数据
+  searchDataByLog: function(e){
+    // 从view中获取值，在view标签中定义data-name(name自定义，比如view中是data-log="123" ; 那么e.target.dataset.log=123)
+    searchTitle = e.target.dataset.log;
+    var that = this;
+    that.setData({
+        msgList : [],
+        scrollTop : 0,
+        searchLogShowed: false
+    });
+    pageNum = 1;
+    loadMsgData(that);
+  },
+  // 清楚搜索记录
+  clearSearchLog:function(){
+    var that = this;
+    that.setData({
+      hidden:false
+    });
+    wx.removeStorageSync("searchLog");
+    that.setData({
+        scrollTop : 0,
+        searchLogShowed: false,
+        hidden:true
+    });
   },
   onHide:function(){
     // 页面隐藏
