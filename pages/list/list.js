@@ -50,7 +50,6 @@ Page({
     inputVal: "", // 搜索的内容
     searchLogShowed: false // 是否显示搜索历史记录
   },
-
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
@@ -72,7 +71,6 @@ Page({
       loadMsgData(that);
     }
   },
-
   onReady:function(){
     // 页面渲染完成
   },
@@ -98,6 +96,7 @@ Page({
     var that = this;
     loadMsgData(that);
   },
+
   // 定位数据
   scroll:function(event){
     var that = this;
@@ -105,21 +104,39 @@ Page({
       scrollTop : event.detail.scrollTop
     });
   },
+
   // 显示搜索输入框和搜索历史记录
   showInput: function () {
     var that = this;
-    that.setData({
-      inputShowed: true,
-      searchLogShowed: true
-    });
+    if ("" != wx.getStorageSync('searchLog')) {
+      that.setData({
+          inputShowed: true,
+          searchLogShowed: true,
+          searchLogList : wx.getStorageSync('searchLog')
+      });
+    } else {
+      that.setData({
+          inputShowed: true,
+          searchLogShowed: true
+      });
+    }
   },
+
   // 显示搜索历史记录
   searchLogShowed: function(){
     var that = this;
-    that.setData({
-      searchLogShowed: true
-    });
+    if ("" != wx.getStorageSync('searchLog')) {
+      that.setData({
+          searchLogShowed: true,
+          searchLogList : wx.getStorageSync('searchLog')
+      });
+    } else {
+      that.setData({
+          searchLogShowed: true
+      });
+    }
   },
+
   // 点击 搜索 按钮后 隐藏搜索记录，并加载数据
   searchData: function () {
     var that = this;
@@ -137,6 +154,7 @@ Page({
       wx.setStorageSync('searchLog', searchLogData);
     }
   },
+
   // 点击叉叉icon 清除输入内容，同时清空关键字，并加载数据
   clearInput: function () {
     var that = this;
@@ -149,6 +167,7 @@ Page({
     pageNum = 1;
     loadMsgData(that);
   },
+
   // 输入内容时 把当前内容赋值给 查询的关键字，并显示搜索记录
   inputTyping: function (e) {
     var that = this;
@@ -166,6 +185,7 @@ Page({
     }
     searchTitle = e.detail.value;
   },
+
   // 通过搜索记录查询数据
   searchDataByLog: function(e){
     // 从view中获取值，在view标签中定义data-name(name自定义，比如view中是data-log="123" ; 那么e.target.dataset.log=123)
@@ -174,7 +194,8 @@ Page({
     that.setData({
         msgList : [],
         scrollTop : 0,
-        searchLogShowed: false
+        searchLogShowed: false,
+        inputVal: searchTitle
     });
     pageNum = 1;
     loadMsgData(that);
@@ -189,7 +210,8 @@ Page({
     that.setData({
         scrollTop : 0,
         searchLogShowed: false,
-        hidden:true
+        hidden:true,
+        searchLogList:[]
     });
   },
   onHide:function(){
