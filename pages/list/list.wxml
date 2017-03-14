@@ -1,4 +1,20 @@
-
+<!--
+参数说明：
+id ：文章id
+src ：文章图片路径
+title ：文章标题
+time ：文章创建时间
+scrollTop ：距顶部位置
+windowHeight ：设备的高
+windowWidth ：设备的宽
+inputVal ：输入框的值
+inputShowed ：搜索输入框的 boolean
+searchLogShowed ：是否显示搜索历史记录 boolean
+hidden ：是否显示加载提示框 boolean
+msgList ：文章列表
+对于wx-for循环提示警告错误 ："Now you can provide attr "wx:key" for a "wx:for" to improve performance." 可以参考
+http://blog.csdn.net/sinat_31177681/article/details/53557642
+-->
 <!--用name 定义模版-->
 <template name="msgTemp">
     <!--
@@ -28,7 +44,7 @@
                     <view class="weui-search-bar__form">
                         <view class="weui-search-bar__box">
                             <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-                            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+                            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" bindtap="searchLogShowed"/>
                             <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
                                 <icon type="clear" size="14"></icon>
                             </view>
