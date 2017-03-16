@@ -1,41 +1,36 @@
-
-<template name="wxSearchbar">
-<view class="weui-search-bar">
-    <view class="weui-search-bar__form">
-        <view class="weui-search-bar__box">
-            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
-            <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
-                <icon type="clear" size="14"></icon>
+<view class="page__bd">
+    <view>
+        <image src="" style="width: 50px; height: 50px; display: block"/>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                <image src="" style="width: 50px; height: 50px; display: block"/>
+                <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</view>
+            </view>
+            <view class="weui-cell__bd">
+                <view>点击登录</view>
+                <view style="font-size: 13px;color: #888888;">摘要信息</view>
             </view>
         </view>
-        <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
-            <icon class="weui-icon-search" type="search" size="14"></icon>
-            <view class="weui-search-bar__text">搜索</view>
-        </label>
+        <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">
+                <view style="display: inline-block; vertical-align: middle">发布博客</view>
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">
+                <view style="display: inline-block; vertical-align: middle">信息列表</view>
+                <view class="weui-badge" style="margin-left: 5px;">8</view>
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access">详细信息</view>
+        </view>
+        <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__bd">
+                <view style="display: inline-block; vertical-align: middle">设置</view>
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
     </view>
-    <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
 </view>
-<view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-            <view>实时搜索文本</view>
-        </view>
-    </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-            <view>实时搜索文本</view>
-        </view>
-    </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-            <view>实时搜索文本</view>
-        </view>
-    </navigator>
-    <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">
-            <view>实时搜索文本</view>
-        </view>
-    </navigator>
-</view>
-</template>
