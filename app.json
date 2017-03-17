@@ -1,10 +1,12 @@
 {
   "pages":[
+    "pages/login/login",
     "pages/list/list",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/list/list",
     "pages/detail/detail",
+    
+    "pages/register/register",
     "pages/user/user"
   ],
   "tabBar": {

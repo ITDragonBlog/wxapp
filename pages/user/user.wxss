@@ -1,7 +1,7 @@
-.me-background{
-    z-index: 0
+.page__bd{
+    background: url(../../images/meBack.jpg) no-repeat;
+    background-size:cover;
 }
 .me-info{
-    z-index: 999;
-    margin-top: 30px;
+
 }
