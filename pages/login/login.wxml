@@ -12,7 +12,7 @@
             <view class="weui-label">账号</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入账号" type="text" maxlength="20" />
+            <input class="weui-input" placeholder="请输入账号" type="text" maxlength="20" focus="true"/>
           </view>
         </view>
         <view class="weui-cell weui-cell_input">

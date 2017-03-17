@@ -1,4 +1,5 @@
 <view class="page__bd">
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{errorMsg}}</view>
   <view style="height: {{windowHeight}}px; width: {{windowWidth}}px;" class="back_img">
   </view>
   <view style="position:absolute;top:{{windowHeight * 0.06}}px;">
@@ -12,7 +13,7 @@
             <view class="weui-label">账号</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入账号" type="text" maxlength="20" />
+            <input class="weui-input" placeholder="请输入账号" type="text" maxlength="20" value="{{account}}" focus="true" bindblur="checkAccount" />
           </view>
         </view>
         <view class="weui-cell weui-cell_input">
@@ -20,7 +21,7 @@
             <view class="weui-label">密码</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入密码" type="password" maxlength="10" />
+            <input class="weui-input" placeholder="请输入密码" type="password" maxlength="10" value="{{password}}" bindblur="getPassword" />
           </view>
         </view>
         <view class="weui-cell weui-cell_input">
@@ -28,26 +29,13 @@
             <view class="weui-label">确认密码</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入确认密码" type="password" maxlength="10" />
+            <input class="weui-input" placeholder="请输入确认密码" type="password" maxlength="10" value="{{subPassword}}" bindblur="checkPassword" />
           </view>
         </view>
-        <checkbox-group bindchange="bindAgreeChange">
-          <label class="weui-agree" for="weuiAgree">
-            <view class="weui-agree__text">
-              <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
-              <view class="weui-agree__checkbox-icon">
-                <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
-              </view>
-              阅读并同意
-              <navigator url="" class="weui-agree__link">《相关条款》</navigator>
-            </view>
-          </label>
-        </checkbox-group>
         <view class="weui-btn-area">
-          <button class="weui-btn" type="primary" bindtap="showTopTips">注册</button>
+          <button class="weui-btn" type="primary" bindtap="registerUser">注册</button>
         </view>
       </view>
-      <view class="weui-cells__tips"></view>
     </view>
   </form>
 </view>
