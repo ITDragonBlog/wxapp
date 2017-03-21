@@ -15,7 +15,7 @@ function formatNumber(n) {
   return n[1] ? n : '0' + n
 }
 
-var rootDocment = 'https://www.itit123.cn';
+var rootDocment = 'http://localhost:8080';//https://www.itit123.cn
 function req(url,data,cb){
     wx.request({
       url: rootDocment + url,

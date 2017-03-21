@@ -13,7 +13,7 @@
             <view class="weui-label">账号</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入账号" type="text" maxlength="20" value="{{account}}" focus="true" bindblur="checkAccount" />
+            <input class="weui-input" placeholder="请输入账号" type="text" maxlength="20" value="{{account}}" focus="true" name="account"/>
           </view>
         </view>
         <view class="weui-cell weui-cell_input">
@@ -21,7 +21,7 @@
             <view class="weui-label">密码</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入密码" type="password" maxlength="10" value="{{password}}" bindblur="getPassword" />
+            <input class="weui-input" placeholder="请输入密码" type="password" maxlength="10" value="{{password}}" name="password"/>
           </view>
         </view>
         <view class="weui-cell weui-cell_input">
@@ -29,11 +29,11 @@
             <view class="weui-label">确认密码</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入确认密码" type="password" maxlength="10" value="{{subPassword}}" bindblur="checkPassword" />
+            <input class="weui-input" placeholder="请输入确认密码" type="password" maxlength="10" value="{{subPassword}}" name="subPassword"/>
           </view>
         </view>
         <view class="weui-btn-area">
-          <button class="weui-btn" type="primary" bindtap="registerUser">注册</button>
+          <button class="weui-btn" type="primary" formType="submit">注册</button>
         </view>
       </view>
     </view>
