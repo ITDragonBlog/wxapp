@@ -31,6 +31,21 @@ function req(url,data,cb){
     })
 }
 
+function getReq(url,data,cb){
+    wx.request({
+      url: rootDocment + url,
+      data: data,
+      method: 'get',
+      header: {'Content-Type':'application/x-www-form-urlencoded'},
+      success: function(res){
+        return typeof cb == "function" && cb(res.data)
+      },
+      fail: function(){
+        return typeof cb == "function" && cb(false)
+      }
+    })
+}
+
 // 去前后空格
 function trim(str) {
   return str.replace(/(^\s*)|(\s*$)/g, "");
@@ -57,5 +72,6 @@ module.exports = {
   req: req,
   trim: trim,
   isError: isError, 
-  clearError: clearError
+  clearError: clearError,
+  getReq: getReq
 }

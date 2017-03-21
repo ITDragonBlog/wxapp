@@ -30,7 +30,8 @@ App({
     userInfo:null
   },
   ajax:{  
-    req:http.req  
+    req:http.req,
+    getReq:http.getReq
   }
 })
 
