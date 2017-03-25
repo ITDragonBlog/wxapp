@@ -58,15 +58,17 @@ Page({
       "account": account,
       "password": password
     }, function (res) {
-      console.log(res);
-      if ("true" == res) {
+      if (true == res) {
         // 显示模态弹窗
         wx.showModal({
           title: '注册状态',
           content: '注册成功，请点击确定登录吧',
           success: function (res) {
             if (res.confirm) {
-              // 点击确定后直接登录
+              // 点击确定后跳转登录页面并关闭当前页面
+              wx.redirectTo({
+                url: '../login/login?account=' + account + '&password?=' + password + ''
+              })
             }
           }
         })

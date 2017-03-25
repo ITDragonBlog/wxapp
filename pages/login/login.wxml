@@ -13,7 +13,7 @@
             <view class="weui-label">账号</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入账号" type="text" maxlength="20" focus="true" name="account"/>
+            <input class="weui-input" placeholder="请输入账号" type="text" maxlength="20" focus="true" name="account" value="{{account}}"/>
           </view>
         </view>
         <view class="weui-cell weui-cell_input">
@@ -21,9 +21,10 @@
             <view class="weui-label">密码</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" placeholder="请输入密码" type="password" maxlength="10" name="password"/>
+            <input class="weui-input" placeholder="请输入密码" type="password" maxlength="10" name="password" value="{{password}}"/>
           </view>
         </view>
+        <!--
         <view class="weui-cell weui-cell_input weui-cell_vcode">
           <view class="weui-cell__hd">
             <view class="weui-label">验证码</view>
@@ -35,6 +36,7 @@
             <image class="weui-vcode-img" src="{{vcodeImg}}" style="width: 108px"></image>
           </view>
         </view>
+        -->
         <view class="weui-btn-area">
           <button class="weui-btn" type="primary" formType="submit">登录</button>
         </view>

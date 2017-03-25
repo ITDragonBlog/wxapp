@@ -3,39 +3,37 @@ var util = require('../../utils/util.js');
 
 Page({
   data: {
-    vcodeImg: ""
+    account:"",
+    password:""
   },
-  onLoad: function () {
+  onLoad: function (options) {
     var that = this;
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
           windowHeight: res.windowHeight,
-          windowWidth: res.windowWidth
+          windowWidth: res.windowWidth,
+          account: options.account,
+          password: options.password
         })
       }
-    });
-    app.ajax.getReq('/login/valiCode', {}, function (res) {
-      that.setData({
-        vcodeImg: res
-      })
     });
   },
 
   formSubmit: function (e) {
-    var account = e.detail.value.account;
-    var password = e.detail.value.password;
+    var accountVal = e.detail.value.account;
+    var passwordVal = e.detail.value.password;
     var vcode = e.detail.value.vcode;
     var that = this;
-    if ("" == util.trim(account) || "" == util.trim(password)) {
+    if ("" == util.trim(accountVal) || "" == util.trim(passwordVal)) {
       util.isError("请输入账号密码", that);
       return;
     } else {
       util.clearError(that);
     }
-    app.ajax.req('', {
-      "account": account,
-      "password": password
+    app.ajax.req('/itdragon/login', {
+      "account": accountVal,
+      "password": passwordVal
     }, function (res) {
       console.log(res);
     });

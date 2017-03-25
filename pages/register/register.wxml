@@ -1,3 +1,13 @@
+<!--
+变量说明：
+showTopTips ： 是否显示提示信息
+errorMsg ： 错误信息
+windowHeight ：设备的窗口的高度
+windowWidth ： 设备的窗口的宽度
+account ： 账号
+password ：密码
+subPassword ：确认密码
+-->
 <view class="page__bd">
   <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{errorMsg}}</view>
   <view style="height: {{windowHeight}}px; width: {{windowWidth}}px;" class="back_img">
