@@ -1,10 +1,7 @@
-.searchbar-result{
-    margin-top: 0;
-    font-size: 14px;
+.page__bd{
+    background: url(../../images/meBack.jpg) no-repeat;
+    background-size:cover;
 }
-.searchbar-result:before{
-    display: none;
-}
-.weui-cell{
-    padding: 12px 15px 12px 35px;
+.me-info{
+
 }
