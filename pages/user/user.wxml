@@ -3,7 +3,7 @@
     style="top:{{windowHeight * 0.4}}px;">
         <view class="weui-cell">
             <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-                <image src="../../images/pic_160.png" style="width: 50px; height: 50px; display: block;border-radius:25px;"/>
+                <image src="{{userImg}}" style="width: 50px; height: 50px; display: block;border-radius:25px;" bindtap="clickImage"/>
             </view>
             <view class="weui-cell__bd">
                 <navigator url="../login/login" >
@@ -37,4 +37,10 @@
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
     </view>
+    <action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetbindchange">
+        <block wx:for="{{actionSheetItems}}" wx:key="unique">
+            <action-sheet-item bindtap="{{item.bindtap}}">{{item.txt}}</action-sheet-item>
+        </block>
+        <action-sheet-cancel class="cancel">取消</action-sheet-cancel>
+    </action-sheet>
 </view>
