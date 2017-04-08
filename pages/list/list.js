@@ -11,51 +11,54 @@ var msgListKey = ""; // 文章列表本地缓存key
  * "pageSize" ：每页数量
  * "search_LIKE_title" ：以文章标题模糊查询 ，格式为 "search_LIKE_实体类属性"
  */
-var loadMsgData = function(that){
+var loadMsgData = function (that) {
   msgListKey = "msgList" + pageNum;
   // 显示加载的icon
   that.setData({
-    hidden:false
+    hidden: false
   });
   // 获取上一页数据
   var allMsg = that.data.msgList;
-  app.ajax.req('/itdragon/findAll',{
-    "page":pageNum , 
-    "pageSize" : 6 ,
-    "search_LIKE_title" : searchTitle
-  },function(res){  
+  app.ajax.req('/itdragon/findAll', {
+    "page": pageNum,
+    "pageSize": 6,
+    "search_LIKE_title": searchTitle
+  }, function (res) {
     // 拼接当前页数据，不能直接 allMsg.push(res); 
-    for(var i = 0; i < res.length; i++){
+    for (var i = 0; i < res.length; i++) {
       allMsg.push(res[i]);
     }
     // 赋值并隐藏加载的icon
     that.setData({
-      msgList:allMsg,
-      hidden:true
+      msgList: allMsg,
+      hidden: true
     });
     // 缓存列表页面
-    wx.setStorageSync(msgListKey,allMsg);
+    wx.setStorageSync(msgListKey, allMsg);
   });
   // 页数加一
-  pageNum ++;
+  pageNum++;
 }
 
 Page({
-  data:{
-    msgList:[], // 存储文章列表信息
-    searchLogList:[], // 存储搜索历史记录信息
-    hidden:true, // 加载提示框是否显示
-    scrollTop : 0, // 居顶部高度
+  data: {
+    msgList: [], // 存储文章列表信息
+    searchLogList: [], // 存储搜索历史记录信息
+    hidden: true, // 加载提示框是否显示
+    scrollTop: 0, // 居顶部高度
     inputShowed: false, // 搜索输入框是否显示
     inputVal: "", // 搜索的内容
-    searchLogShowed: false // 是否显示搜索历史记录
+    searchLogShowed: false, // 是否显示搜索历史记录
+    refreshHeight: 0,//获取高度 
+    refreshing: false,//是否在刷新中  
+    refreshAnimation: {}, //加载更多旋转动画数据
   },
-  onLoad:function(options){
+  onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
     wx.getSystemInfo({
-      success: function(res) {
-        that.setData( {
+      success: function (res) {
+        that.setData({
           windowHeight: res.windowHeight,
           windowWidth: res.windowWidth
         })
@@ -65,43 +68,48 @@ Page({
     var info = wx.getStorageSync(msgListKey);
     if (info) {
       that.setData({
-        msgList:info
+        msgList: info
       });
     } else {
       loadMsgData(that);
     }
   },
-  onReady:function(){
+  onReady: function () {
     // 页面渲染完成
   },
-  onShow:function(){
+  onShow: function () {
     // 页面显示
   },
 
   // 下拉刷新数据 下拉动态效果不明显有待改善
-  pullDownRefresh: function() {
+  pullDownRefresh: function () {
     var that = this;
     // 刷新的准备工作，想将页数设置为一，然后清空文章列表信息，定位在距顶部为0的地方
     pageNum = 1;
     that.setData({
-      msgList : [],
-      scrollTop : 0
+      msgList: [],
+      scrollTop: 0,
+      refreshHeight: 30
     });
+    updateRefreshIcon.call(this);
     // 加载数据
     loadMsgData(that);
+    that.setData({
+      refreshHeight: 0
+    });
   },
 
   // 上拉加载数据 
-  pullUpLoad: function() {
+  pullUpLoad: function () {
     var that = this;
     loadMsgData(that);
   },
 
   // 定位数据
-  scroll:function(event){
+  scroll: function (event) {
     var that = this;
     that.setData({
-      scrollTop : event.detail.scrollTop
+      scrollTop: event.detail.scrollTop
     });
   },
 
@@ -110,29 +118,29 @@ Page({
     var that = this;
     if ("" != wx.getStorageSync('searchLog')) {
       that.setData({
-          inputShowed: true,
-          searchLogShowed: true,
-          searchLogList : wx.getStorageSync('searchLog')
+        inputShowed: true,
+        searchLogShowed: true,
+        searchLogList: wx.getStorageSync('searchLog')
       });
     } else {
       that.setData({
-          inputShowed: true,
-          searchLogShowed: true
+        inputShowed: true,
+        searchLogShowed: true
       });
     }
   },
 
   // 显示搜索历史记录
-  searchLogShowed: function(){
+  searchLogShowed: function () {
     var that = this;
     if ("" != wx.getStorageSync('searchLog')) {
       that.setData({
-          searchLogShowed: true,
-          searchLogList : wx.getStorageSync('searchLog')
+        searchLogShowed: true,
+        searchLogList: wx.getStorageSync('searchLog')
       });
     } else {
       that.setData({
-          searchLogShowed: true
+        searchLogShowed: true
       });
     }
   },
@@ -141,9 +149,9 @@ Page({
   searchData: function () {
     var that = this;
     that.setData({
-        msgList : [],
-        scrollTop : 0,
-        searchLogShowed: false
+      msgList: [],
+      scrollTop: 0,
+      searchLogShowed: false
     });
     pageNum = 1;
     loadMsgData(that);
@@ -159,9 +167,9 @@ Page({
   clearInput: function () {
     var that = this;
     that.setData({
-        msgList : [],
-        scrollTop : 0,
-        inputVal: ""
+      msgList: [],
+      scrollTop: 0,
+      inputVal: ""
     });
     searchTitle = "";
     pageNum = 1;
@@ -174,50 +182,72 @@ Page({
     // 如果不做这个if判断，会导致 searchLogList 的数据类型由 list 变为 字符串
     if ("" != wx.getStorageSync('searchLog')) {
       that.setData({
-          inputVal: e.detail.value,
-          searchLogList : wx.getStorageSync('searchLog')
+        inputVal: e.detail.value,
+        searchLogList: wx.getStorageSync('searchLog')
       });
     } else {
       that.setData({
-          inputVal: e.detail.value,
-          searchLogShowed: true
+        inputVal: e.detail.value,
+        searchLogShowed: true
       });
     }
     searchTitle = e.detail.value;
   },
 
   // 通过搜索记录查询数据
-  searchDataByLog: function(e){
+  searchDataByLog: function (e) {
     // 从view中获取值，在view标签中定义data-name(name自定义，比如view中是data-log="123" ; 那么e.target.dataset.log=123)
     searchTitle = e.target.dataset.log;
     var that = this;
     that.setData({
-        msgList : [],
-        scrollTop : 0,
-        searchLogShowed: false,
-        inputVal: searchTitle
+      msgList: [],
+      scrollTop: 0,
+      searchLogShowed: false,
+      inputVal: searchTitle
     });
     pageNum = 1;
     loadMsgData(that);
   },
   // 清楚搜索记录
-  clearSearchLog:function(){
+  clearSearchLog: function () {
     var that = this;
     that.setData({
-      hidden:false
+      hidden: false
     });
     wx.removeStorageSync("searchLog");
     that.setData({
-        scrollTop : 0,
-        searchLogShowed: false,
-        hidden:true,
-        searchLogList:[]
+      scrollTop: 0,
+      searchLogShowed: false,
+      hidden: true,
+      searchLogList: []
     });
   },
-  onHide:function(){
+  onHide: function () {
     // 页面隐藏
   },
-  onUnload:function(){
+  onUnload: function () {
     // 页面关闭
   }
 })
+
+/** 
+ * 旋转上拉加载图标 
+ */
+function updateRefreshIcon() {
+  var deg = 0;
+  var _this = this;
+  console.log('旋转开始了.....')
+  var animation = wx.createAnimation({
+    duration: 1000
+  });
+
+  var timer = setInterval(function () {
+    if (!_this.data.refreshing)
+      clearInterval(timer);
+    animation.rotateZ(deg).step();//在Z轴旋转一个deg角度  
+    deg += 360;
+    _this.setData({
+      refreshAnimation: animation.export()
+    })
+  }, 1000);
+}  
