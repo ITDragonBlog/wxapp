@@ -3,15 +3,14 @@ var app = getApp();
 
 Page({
     data: {
-        inputShowed: false,
-        inputVal: "",
-        userImg: "../../images/pic_160.png",
-        actionSheetHidden: true,
+        userImg: "../../images/pic_160.png", // 头像图片路径
+        actionSheetHidden: true, // 是否显示底部可选菜单
         actionSheetItems: [
-            { bindtap: 'changeImage', txt: '修改原图' },
-            { bindtap: 'viewImage', txt: '查看原图' }
-        ]
+            { bindtap: 'changeImage', txt: '修改头像' },
+            { bindtap: 'viewImage', txt: '查看头像' }
+        ] // 底部可选菜单
     },
+    // 初始化加载获取设备长宽
     onLoad: function (options) {
         var that = this;
         wx.getSystemInfo({

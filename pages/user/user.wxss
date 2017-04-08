@@ -1,5 +1,5 @@
 .page__bd{
-    background: url(../../images/meBack.jpg) no-repeat;
+    background: url(https://www.itit123.cn/image/meBack.jpg) no-repeat;
     background-size:cover;
 }
 .me-info{
